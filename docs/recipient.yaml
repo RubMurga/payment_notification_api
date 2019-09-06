@@ -1,0 +1,43 @@
+paths:
+  /api/recipient/{user}:
+    post: 
+      summary: Creates a new recipient.
+      consumes:
+        - application/json
+      parameters:
+        - in: path
+          name: user
+          description: User's id
+          required: true
+          type: string
+          minimum: 2
+
+        - in: body
+          name: User
+          description: User to create.
+          schema:
+            type: object
+            required:
+              - name
+            properties:
+              name: 
+                type: string
+              email_notification: 
+                type: boolean
+              sms_notification: 
+                type: boolean
+              email: 
+                type: string
+              phone_number: 
+                type: string
+      responses:
+        201:
+          description: Recipient created.
+          schema:
+            type: object
+            $ref: '#/definitions/User'
+        '400 (Error creating user)':       
+          description: Error creating recipient.
+          schema: 
+            type: object
+            $ref: '#/definitions/Error'
